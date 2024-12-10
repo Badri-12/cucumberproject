@@ -1,8 +1,9 @@
 package Stepdefinition;
 
 import java.io.*;
+import java.util.*;
 
-
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,14 +36,15 @@ String browser=System.getProperty("browser");
 	}
 }
 @After
-public void teatDown(Scenario scenario) {
+public void teatDown(Scenario scenario) throws IOException {
 	File fp=new File(scenario.getName()+".png");
-	FileUtils.copy(((TakesScreenshot)DriverFactory.driver.get()).getScreenshotAs(OutputType.BASE64),fp);
+	byte[] source=((TakesScreenshot)DriverFactory.driver.get()).getScreenshotAs(OutputType.BYTES);
+	
 	if(scenario.isFailed()) {
-		scenario.attach(((TakesScreenshot)DriverFactory.driver.get()).getScreenshotAs(OutputType.BASE64), "png", scenario.getName());
+		scenario.attach(source, "image/png", scenario.getName());
 	}
 	else
-		scenario.attach(((TakesScreenshot)DriverFactory.driver.get()).getScreenshotAs(OutputType.BASE64), "png", scenario.getName());
+		scenario.attach(source, "image/png", scenario.getName());
 	DriverFactory.driver.get().quit();
 	DriverFactory.driver.set(null);
 }
