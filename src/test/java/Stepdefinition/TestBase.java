@@ -37,7 +37,7 @@ String browser=System.getProperty("browser");
 }
 @After
 public void teatDown(Scenario scenario) throws IOException {
-	File fp=new File(scenario.getName()+".png");
+	
 	byte[] source=((TakesScreenshot)DriverFactory.driver.get()).getScreenshotAs(OutputType.BYTES);
 	
 	if(scenario.isFailed()) {
