@@ -47,6 +47,7 @@ public void teatDown(Scenario scenario) throws IOException {
 		scenario.attach(source, "image/png", scenario.getName());
 	DriverFactory.driver.get().quit();
 	DriverFactory.driver.set(null);
+	System.out.println("Browsers closed");
 }
 
 }
