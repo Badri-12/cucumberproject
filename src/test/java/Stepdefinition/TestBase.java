@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 import io.cucumber.java.*;
+import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 
 public class TestBase {
 private String browser;
@@ -47,6 +48,7 @@ public void teatDown(Scenario scenario) throws IOException {
 		scenario.attach(source, "image/png", scenario.getName());
 	DriverFactory.driver.get().quit();
 	DriverFactory.driver.set(null);
+	System.out.println("Browser closed");
 }
 
 }
